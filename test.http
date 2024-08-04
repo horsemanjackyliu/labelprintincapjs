@@ -1,0 +1,72 @@
+#@getDN
+GET http://localhost:4004/odata/v4/dnservice/DnHeaders(DeliveryDocument='80000000')/Items HTTP/1.0
+Content-Type: application/json
+
+###
+
+#@getDNItem
+GET http://localhost:4004/odata/v4/dnservice/DnHeaders(DeliveryDocument='80000000')/Items(DeliveryDocument='80000000',DeliveryDocumentItem='000010') HTTP/1.0
+Authorization: Basic jacky:654123
+Content-Type: application/json
+
+
+###
+
+#@CallFunction
+GET http://localhost:4004/odata/v4/dnservice/getTemplates() HTTP/1.0
+Authorization: Basic jacky:654123
+Content-Type: application/json
+
+
+###
+
+#@CallRenderFunction
+GET  http://localhost:4004/odata/v4/dnservice/DnItems(DeliveryDocument='80000000',DeliveryDocumentItem='000010')/render(template='labelprint3\labelprint3') HTTP/1.0
+Content-Type: application/json
+
+
+###
+
+#@CallDnitems
+GET http://localhost:4004/odata/v4/dnservice/DnItems(DeliveryDocument='80000000',DeliveryDocumentItem='000010') HTTP/1.0
+Content-Type: application/json
+
+
+###
+#@CallDnitemsmetadata
+
+GET http://localhost:4004/odata/v4/dnservice/$metadata#DnItems/$entity
+Content-Type: application/json
+
+
+###
+#@GetMetadata
+GET http://localhost:4004/odata/v4/dnservice/$metadata HTTP/1.0
+Content-Type: application/json
+
+
+###
+
+#@CallFunction
+GET http://localhost:4004/odata/v4/dnservice/getPrintQs() HTTP/1.0
+Content-Type: application/json
+
+
+###
+
+#@CallRenderAndPrint
+GET  http://localhost:4004/odata/v4/dnservice/DnItems(DeliveryDocument='80000000',DeliveryDocumentItem='000010')/renderAndPrint(template='labelprint3\labelprint3',printQ='plant2') HTTP/1.0
+Content-Type: application/json
+
+
+###
+
+#@Print
+POST http://localhost:4004/odata/v4/dnservice/getPrintQs() HTTP/1.0
+Content-Type: application/json
+
+
+
+
+
+

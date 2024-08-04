@@ -1,0 +1,61 @@
+{
+  "name": "capconsump",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap-cloud-sdk/connectivity": "^3.16.0",
+    "@sap-cloud-sdk/http-client": "^3.16.0",
+    "@sap-cloud-sdk/openapi": "^3.16.0",
+    "@sap-cloud-sdk/openapi-generator": "^3.16.0",
+    "@sap-cloud-sdk/resilience": "^3.16.0",
+    "@sap/cds": "^7",
+    "express": "^4",
+    "nodemailer": "^6.9.14",
+    "base64topdf": "^1.1.8",
+    "@sap/xssec": "^3"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^1",
+    "@sap/eslint-plugin-cds": "^3",
+    "eslint": "^9"
+  },
+  "scripts": {
+    "start": "cds-serve"
+  },
+  "cds": {
+    "requires": {
+      "API_OUTBOUND_DELIVERY_SRV_0002": {
+        "kind": "odata-v2",
+        "model": "srv/external/API_OUTBOUND_DELIVERY_SRV_0002",
+        "[development]": {
+          "credentials": {
+            "url": "https://my300018-api.saps4hanacloud.cn/sap/opu/odata/sap/API_OUTBOUND_DELIVERY_SRV;v=0002",
+            "authentication": "BasicAuthentication",
+            "username": "SPAWORKSHOP",
+            "password": "Jl98765432198765432!"
+          }
+        }
+      },
+      "[hybrid]": {
+        "auth": {
+          "kind": "mocked",
+          "users": {
+            "jacky": {
+              "password": "654123",
+              "roles": [
+                "Admin",
+                "Vierer"
+              ]
+            }
+          }
+        }
+      },
+      "[production]": {
+        "auth": "xsuaa"
+      }
+    }
+  }
+}

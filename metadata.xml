@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" 
+  xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+    <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+  </edmx:Reference>
+  <edmx:DataServices>
+    <Schema Namespace="com.cap.labelprint.dnservice" 
+      xmlns="http://docs.oasis-open.org/odata/ns/edm">
+      <EntityContainer Name="EntityContainer">
+        <EntitySet Name="DnHeaders" EntityType="com.cap.labelprint.dnservice.DnHeaders">
+          <NavigationPropertyBinding Path="Items" Target="DnItems"/>
+        </EntitySet>
+        <EntitySet Name="DnItems" EntityType="com.cap.labelprint.dnservice.DnItems"/>
+        <FunctionImport Name="getTemplates" Function="com.cap.labelprint.dnservice.getTemplates"/>
+      </EntityContainer>
+      <EntityType Name="DnHeaders">
+        <Key>
+          <PropertyRef Name="DeliveryDocument"/>
+        </Key>
+        <Property Name="DeliveryDocument" Type="Edm.String" MaxLength="10" Nullable="false"/>
+        <Property Name="DeliveryDate" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="ActualDeliveryRoute" Type="Edm.String" MaxLength="6"/>
+        <Property Name="ActualGoodsMovementDate" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="BillingDocumentDate" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="BillOfLading" Type="Edm.String" MaxLength="35"/>
+        <Property Name="CreationDate" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="CreatedByUser" Type="Edm.String" MaxLength="12"/>
+        <Property Name="DocumentDate" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="HeaderGrossWeight" Type="Edm.Decimal" Precision="15" Scale="3"/>
+        <Property Name="HeaderNetWeight" Type="Edm.Decimal" Precision="15" Scale="3"/>
+        <Property Name="HeaderVolume" Type="Edm.Decimal" Precision="15" Scale="3"/>
+        <Property Name="HeaderVolumeUnit" Type="Edm.String" MaxLength="3"/>
+        <Property Name="HeaderWeightUnit" Type="Edm.String" MaxLength="3"/>
+        <NavigationProperty Name="Items" Type="Collection(com.cap.labelprint.dnservice.DnItems)"/>
+      </EntityType>
+      <EntityType Name="DnItems">
+        <Key>
+          <PropertyRef Name="DeliveryDocument"/>
+          <PropertyRef Name="DeliveryDocumentItem"/>
+        </Key>
+        <Property Name="DeliveryDocument" Type="Edm.String" MaxLength="10" Nullable="false"/>
+        <Property Name="DeliveryDocumentItem" Type="Edm.String" MaxLength="6" Nullable="false"/>
+        <Property Name="ActualDeliveredQtyInBaseUnit" Type="Edm.Decimal" Precision="13" Scale="3"/>
+        <Property Name="ActualDeliveryQuantity" Type="Edm.Decimal" Precision="13" Scale="3"/>
+        <Property Name="BaseUnit" Type="Edm.String" MaxLength="3"/>
+        <Property Name="Batch" Type="Edm.String" MaxLength="10"/>
+        <Property Name="CreatedByUser" Type="Edm.String" MaxLength="12"/>
+        <Property Name="CreationDate" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="DeliveryDocumentItemCategory" Type="Edm.String" MaxLength="4"/>
+        <Property Name="DeliveryGroup" Type="Edm.String" MaxLength="3"/>
+        <Property Name="DeliveryQuantityUnit" Type="Edm.String" MaxLength="3"/>
+        <Property Name="Division" Type="Edm.String" MaxLength="2"/>
+        <Property Name="GoodsMovementReasonCode" Type="Edm.String" MaxLength="4"/>
+        <Property Name="GoodsMovementStatus" Type="Edm.String" MaxLength="1"/>
+        <Property Name="GoodsMovementType" Type="Edm.String" MaxLength="3"/>
+        <Property Name="InspectionLot" Type="Edm.String" MaxLength="12"/>
+        <Property Name="ItemGrossWeight" Type="Edm.Decimal" Precision="15" Scale="3"/>
+        <Property Name="ItemNetWeight" Type="Edm.Decimal" Precision="15" Scale="3"/>
+        <Property Name="ItemVolume" Type="Edm.Decimal" Precision="15" Scale="3"/>
+        <Property Name="ItemVolumeUnit" Type="Edm.String" MaxLength="3"/>
+        <Property Name="ItemWeightUnit" Type="Edm.String" MaxLength="3"/>
+        <Property Name="ManufactureDate" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="Material" Type="Edm.String" MaxLength="40"/>
+        <Property Name="MaterialByCustomer" Type="Edm.String" MaxLength="35"/>
+        <Property Name="NumberOfSerialNumbers" Type="Edm.Int32"/>
+        <Property Name="OrderID" Type="Edm.String" MaxLength="12"/>
+        <Property Name="OrderItem" Type="Edm.String" MaxLength="4"/>
+        <Property Name="PackingStatus" Type="Edm.String" MaxLength="1"/>
+        <Property Name="PickingStatus" Type="Edm.String" MaxLength="1"/>
+        <Property Name="ProfitCenter" Type="Edm.String" MaxLength="10"/>
+        <Property Name="DeliveryDocumentItemText" Type="Edm.String" MaxLength="40"/>
+        <Property Name="DistributionChannel" Type="Edm.String" MaxLength="2"/>
+      </EntityType>
+      <Function Name="render" IsBound="true" IsComposable="false">
+        <Parameter Name="in" Type="com.cap.labelprint.dnservice.DnItems"/>
+        <Parameter Name="template" Type="Edm.String"/>
+        <ReturnType Type="Edm.Binary"/>
+      </Function>
+      <Function Name="getTemplates" IsBound="false" IsComposable="false">
+        <ReturnType Type="Collection(Edm.String)" Nullable="false"/>
+      </Function>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>
